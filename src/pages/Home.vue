@@ -36,7 +36,7 @@
 
               <!-- Subtitle Copy -->
               <p class="text-base sm:text-lg text-[#555555] max-w-2xl leading-relaxed font-semibold">
-                Welcome to <span class="font-bold text-[#111111]">MICAH-WEB</span>. I design and build highly customized websites, solid APIs, and interfaces designed to capture leads, showcase credentials, and convert visitors.
+                Welcome to <span class="font-bold text-[#111111]">my Platform</span>. I design and build highly customized websites, solid APIs, and interfaces designed to capture leads, showcase credentials, and convert visitors.
               </p>
 
               <!-- CTA Button Trio -->

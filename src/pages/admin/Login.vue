@@ -1,44 +1,21 @@
 <template>
-  <div class="min-h-screen bg-white dark:bg-gray-900 flex items-center justify-center">
-    <div class="w-full max-w-md px-4">
-      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
-        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2 text-center">Admin Login</h1>
-        <p class="text-gray-600 dark:text-gray-400 text-center mb-8">Enter your API key to access the admin dashboard</p>
+  <div class="admin-login">
+    <section class="admin-login__card" aria-labelledby="admin-login-title">
+      <p class="admin-login__eyebrow">MICAH-WEB / ADMIN</p>
+      <h1 id="admin-login-title">Welcome back.</h1>
+      <p class="admin-login__intro">Sign in to manage projects, messages, and the content shown on your portfolio.</p>
 
-        <form @submit.prevent="handleLogin" class="space-y-6">
-          <!-- API Key Input -->
-          <div>
-            <label for="apiKey" class="block text-sm font-medium text-gray-900 dark:text-white mb-2">password</label>
-            <input
-              id="apiKey"
-              v-model="apiKey"
-              type="password"
-              required
-              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
-              placeholder="Enter your API key"
-            />
-          </div>
+      <form @submit.prevent="handleLogin" class="admin-login__form">
+        <div>
+          <label for="apiKey">Admin password</label>
+          <input id="apiKey" v-model="apiKey" type="password" required autocomplete="current-password" placeholder="Enter your password" />
+        </div>
+        <p v-if="error" class="admin-login__error" role="alert">{{ error }}</p>
+        <button type="submit" :disabled="loading">{{ loading ? 'Signing in...' : 'Sign in to dashboard' }}</button>
+      </form>
 
-          <!-- Error Message -->
-          <div v-if="error" class="bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 p-4 rounded-lg">
-            {{ error }}
-          </div>
-
-          <!-- Submit Button -->
-          <button
-            type="submit"
-            :disabled="loading"
-            class="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-semibold rounded-lg transition-colors"
-          >
-            {{ loading ? 'Logging in...' : 'Login' }}
-          </button>
-        </form>
-
-        <p class="text-center text-gray-600 dark:text-gray-400 text-sm mt-6">
-          Don't have the password? Contact the site owner.
-        </p>
-      </div>
-    </div>
+      <p class="admin-login__help">Need access? Contact the site owner.</p>
+    </section>
   </div>
 </template>
 
@@ -49,7 +26,6 @@ import { useAuthStore } from '../../stores/auth';
 
 const router = useRouter();
 const authStore = useAuthStore();
-
 const apiKey = ref('');
 const loading = ref(false);
 const error = ref<string | null>(null);
@@ -57,18 +33,18 @@ const error = ref<string | null>(null);
 const handleLogin = async () => {
   loading.value = true;
   error.value = null;
-
   try {
     const success = await authStore.doLogin(apiKey.value);
-    if (success) {
-      router.push('/admin');
-    } else {
-      error.value = authStore.error || 'Login failed. Please check your API key.';
-    }
+    if (success) router.push('/admin');
+    else error.value = authStore.error || 'Sign in failed. Check your password and try again.';
   } catch (err: any) {
-    error.value = err.message || 'An error occurred. Please try again.';
+    error.value = err.message || 'Something went wrong. Please try again.';
   } finally {
     loading.value = false;
   }
 };
 </script>
+
+<style>
+.admin-login { --login-blue:#0759d6; --login-blue-dark:#0345ad; --login-blue-pale:#e8f0ff; min-height:100vh; display:grid; place-items:center; padding:1.5rem; background:var(--login-blue-pale); color:#111; }.admin-login__card { width:min(100%,29rem); padding:2.5rem; background:#fff; border:2px solid #111; box-shadow:8px 8px 0 #111; }.admin-login__eyebrow { display:inline-block; padding:.3rem .5rem; border:1px solid #111; background:var(--login-blue); color:#fff; font:700 .65rem/1 'JetBrains Mono',monospace; letter-spacing:.08em; }.admin-login h1 { margin:1.5rem 0 .5rem; font:800 2.3rem/1 'Plus Jakarta Sans',sans-serif; letter-spacing:-.05em; }.admin-login__intro,.admin-login__help { color:#111; font-size:.92rem; line-height:1.6; }.admin-login__form { display:grid; gap:1.25rem; margin-top:2rem; }.admin-login label { display:block; margin-bottom:.5rem; font:700 .78rem/1 'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:.04em; }.admin-login input { width:100%; padding:.8rem .9rem; border:2px solid #111; border-radius:0; color:#111; background:#fff; }.admin-login input:focus { outline:3px solid var(--login-blue-pale); border-color:var(--login-blue); }.admin-login button { width:100%; padding:.8rem 1rem; background:var(--login-blue); color:#fff; border:2px solid #111; box-shadow:3px 3px 0 #111; font-weight:800; cursor:pointer; }.admin-login button:hover { background:var(--login-blue-dark); transform:translate(-1px,-1px); box-shadow:4px 4px 0 #111; }.admin-login button:disabled { opacity:.65; cursor:wait; }.admin-login__error { margin:0; padding:.75rem; border:2px solid #111; background:#fff; color:#111; font-weight:700; }.admin-login__help { margin:1.5rem 0 0; font-size:.8rem; } @media (max-width:520px) { .admin-login__card { padding:1.75rem; } }
+</style>
