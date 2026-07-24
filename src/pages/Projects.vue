@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-[#0a1628] text-slate-200 flex flex-col">
+  <div class="min-h-screen bg-white text-[#111111] flex flex-col justify-between">
     <Navbar />
 
     <main class="flex-1 py-16">
@@ -9,11 +9,11 @@
         <div class="mb-12">
           <p class="section-label mb-3">Work & Projects</p>
           <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-            <h1 class="font-display font-bold text-3xl sm:text-4xl text-white">
+            <h1 class="font-display font-black text-3xl sm:text-4xl text-[#111111]">
               Things I've Built
             </h1>
-            <p class="text-sm text-slate-400 max-w-md leading-relaxed">
-              A collection of real projects — from full-stack web platforms to conversion-focused redesigns.
+            <p class="text-sm text-[#555555] max-w-md leading-relaxed font-semibold">
+              A collection of live applications, digital products, and design solutions completed under MICAH-WEB.
             </p>
           </div>
         </div>
@@ -26,10 +26,10 @@
             v-for="cat in categories"
             :key="cat"
             @click="activeCategory = cat"
-            class="text-xs px-3.5 py-1.5 rounded-md font-medium transition-all border"
+            class="text-xs px-3.5 py-1.5 rounded font-bold transition-all border-2 border-[#111111]"
             :class="activeCategory === cat
-              ? 'bg-[#00d4e8] text-[#0a1628] border-[#00d4e8] font-semibold'
-              : 'bg-transparent text-slate-400 border-slate-800 hover:border-slate-600 hover:text-slate-200'"
+              ? 'bg-[#facc15] text-[#111111] shadow-[2px_2px_0px_#111111]'
+              : 'bg-white text-[#555555] hover:bg-[#f8f9fa] hover:text-[#111111]'"
           >
             {{ cat }}
           </button>
@@ -37,8 +37,8 @@
 
         <!-- Loading State -->
         <div v-if="loading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          <div v-for="i in 6" :key="i" class="card-brief overflow-hidden">
-            <div class="skeleton h-48"></div>
+          <div v-for="i in 6" :key="i" class="card-brief overflow-hidden bg-white">
+            <div class="skeleton h-48 border-b-2 border-[#111111]"></div>
             <div class="p-5 space-y-3">
               <div class="skeleton h-4 w-3/4"></div>
               <div class="skeleton h-3 w-full"></div>
@@ -52,7 +52,7 @@
         </div>
 
         <!-- Error Notice (DB offline) -->
-        <div v-else-if="error" class="mb-6 text-xs text-amber-400 bg-amber-400/5 border border-amber-400/20 px-4 py-3 rounded-md">
+        <div v-else-if="error" class="mb-6 text-xs text-amber-600 bg-amber-50 border-2 border-[#111111] px-4 py-3 rounded shadow-[2px_2px_0px_#111111] font-semibold">
           ⚠️ Could not reach the database — showing sample projects. Start the backend to see your saved projects.
         </div>
 
@@ -74,14 +74,14 @@
 
         <!-- Empty state -->
         <div v-if="!loading && filteredProjects.length === 0" class="text-center py-20">
-          <div class="text-slate-500 text-sm">No projects found in this category.</div>
+          <div class="text-[#555555] text-sm font-semibold">No projects found in this category.</div>
         </div>
 
         <!-- Bottom CTA -->
-        <div class="border border-slate-800 rounded-xl p-8 sm:p-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div class="border-2 border-[#111111] rounded-lg p-8 sm:p-10 flex flex-col sm:flex-row items-center justify-between gap-6 bg-white shadow-[4px_4px_0px_#111111]">
           <div>
-            <h2 class="font-display font-bold text-xl text-white mb-1">Have a project in mind?</h2>
-            <p class="text-sm text-slate-400">Get in touch and let's talk about what you need.</p>
+            <h2 class="font-display font-black text-xl text-[#111111] mb-1">Have a project in mind?</h2>
+            <p class="text-sm text-[#555555] font-semibold">Get in touch and let's talk about what you need.</p>
           </div>
           <router-link to="/contact" class="btn-amber shrink-0">
             Contact Micah →
@@ -106,7 +106,6 @@ const activeCategory = ref('ALL');
 const loading = ref(true);
 const error = ref(false);
 
-// Static fallback projects (shown when DB is offline)
 const staticProjects = [
   {
     _id: 'static-1',
@@ -153,7 +152,6 @@ const fetchProjects = async () => {
   try {
     const res = await axios.get(`${API_BASE}/api/projects`, { timeout: 6000 });
     const liveProjects = Array.isArray(res.data) ? res.data : [];
-    // Merge: live projects first, then static ones not already present
     if (liveProjects.length > 0) {
       projects.value = liveProjects;
     } else {
@@ -167,7 +165,6 @@ const fetchProjects = async () => {
   }
 };
 
-// Compute categories from live data
 const categories = computed(() => {
   const cats = new Set(projects.value.map((p) => p.category).filter(Boolean));
   return ['ALL', ...Array.from(cats)];

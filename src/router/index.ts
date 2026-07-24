@@ -6,49 +6,49 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: () => import('../pages/Home.vue'),
-    meta: { title: 'Home | Portfolio' },
+    meta: { title: 'MICAH-WEB — Digital Portfolio by Micah Okperuvwe' },
   },
   {
     path: '/about',
     component: () => import('../pages/About.vue'),
-    meta: { title: 'About | Portfolio' },
+    meta: { title: 'About | MICAH-WEB' },
   },
   {
     path: '/projects',
     component: () => import('../pages/Projects.vue'),
-    meta: { title: 'Case Studies & Projects' },
+    meta: { title: 'Projects | MICAH-WEB' },
   },
   {
     path: '/case-studies',
     component: () => import('../pages/Projects.vue'),
-    meta: { title: 'Case Studies | Data-Driven Proof' },
+    meta: { title: 'Case Studies | MICAH-WEB' },
   },
   {
     path: '/projects/:slug',
     component: () => import('../pages/ProjectDetail.vue'),
-    meta: { title: 'Case Study Detail' },
+    meta: { title: 'Project Detail | MICAH-WEB' },
   },
   {
     path: '/case-studies/:slug',
     component: () => import('../pages/ProjectDetail.vue'),
-    meta: { title: 'Case Study Detail' },
+    meta: { title: 'Case Study Detail | MICAH-WEB' },
   },
   {
     path: '/services',
     component: () => import('../pages/Services.vue'),
-    meta: { title: 'Services | Portfolio' },
+    meta: { title: 'Services | MICAH-WEB' },
   },
   {
     path: '/contact',
     component: () => import('../pages/Contact.vue'),
-    meta: { title: 'Contact | Portfolio' },
+    meta: { title: 'Contact Micah | MICAH-WEB' },
   },
 
   // Admin routes
   {
     path: '/admin/login',
     component: () => import('../pages/admin/Login.vue'),
-    meta: { title: 'Login | Admin' },
+    meta: { title: 'Admin Login | MICAH-WEB' },
   },
   {
     path: '/admin',
@@ -78,7 +78,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/admin/submissions',
     component: () => import('../pages/admin/Submissions.vue'),
-    meta: { title: 'Contact Submissions | Admin', requiresAuth: true },
+    meta: { title: 'Submissions | Admin', requiresAuth: true },
   },
   {
     path: '/admin/content',
@@ -90,7 +90,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/:pathMatch(.*)*',
     component: () => import('../pages/NotFound.vue'),
-    meta: { title: '404 | Not Found' },
+    meta: { title: '404 | MICAH-WEB' },
   },
 ];
 

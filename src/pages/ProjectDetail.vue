@@ -1,72 +1,80 @@
 <template>
-  <div class="min-h-screen bg-[#0B1E3D] text-slate-100 flex flex-col justify-between">
+  <div class="min-h-screen bg-white text-[#111111] flex flex-col justify-between">
     <Navbar />
 
     <main class="flex-1 py-16">
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div v-if="loading" class="text-center py-20">
-          <p class="font-data text-[#17D9E8] animate-pulse">Loading case study data...</p>
+        <!-- Loading -->
+        <div v-if="loading" class="space-y-6">
+          <div class="skeleton h-6 w-32 rounded"></div>
+          <div class="skeleton h-12 w-3/4 rounded"></div>
+          <div class="skeleton h-80 w-full rounded border-2 border-[#111111]"></div>
+          <div class="card-brief p-8 space-y-3">
+            <div class="skeleton h-5 w-1/3 rounded"></div>
+            <div class="skeleton h-4 w-full rounded"></div>
+            <div class="skeleton h-4 w-2/3 rounded"></div>
+          </div>
         </div>
 
-        <div v-else-if="!project" class="card-brief p-12 text-center max-w-xl mx-auto">
-          <p class="text-red-400 font-medium mb-4">Case Study / Project Not Found</p>
+        <!-- Not found -->
+        <div v-else-if="!project" class="card-brief p-12 text-center max-w-xl mx-auto shadow-[4px_4px_0px_#111111]">
+          <p class="text-red-500 font-bold mb-4">Project Not Found</p>
           <router-link to="/case-studies" class="btn-cyan-outline text-xs">
-            ← Back to Case Studies
+            ← Back to Projects
           </router-link>
         </div>
 
-        <div v-else class="space-y-12">
+        <!-- Project detail -->
+        <div v-else class="space-y-10">
           <!-- Back Button -->
-          <router-link to="/case-studies" class="inline-flex items-center gap-2 font-data text-xs text-[#17D9E8] hover:text-[#F2A93B] transition-colors">
-            <span>←</span>
-            <span>Back to Case Studies</span>
+          <router-link to="/case-studies" class="inline-flex items-center gap-2 font-data text-xs font-bold text-[#555555] hover:text-[#111111] transition-colors border-b border-[#555555] hover:border-[#111111] pb-0.5">
+            ← Back to Projects
           </router-link>
 
           <!-- Header & Title -->
           <div class="space-y-4">
-            <div class="flex items-center gap-3">
-              <span class="font-data text-xs font-semibold text-[#17D9E8] bg-[#17D9E8]/10 px-3 py-1 rounded border border-[#17D9E8]/30 uppercase tracking-widest">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="section-label">
                 {{ project.category || 'CASE STUDY' }}
               </span>
-              <span class="font-data text-xs text-[#F2A93B] bg-[#F2A93B]/10 px-3 py-1 rounded border border-[#F2A93B]/30 uppercase">
+              <span class="font-data text-[10px] font-bold text-[#111111] bg-white border-2 border-[#111111] px-2.5 py-0.5 rounded uppercase tracking-wider shadow-[1px_1px_0px_#111111]">
                 {{ project.status || 'Completed' }}
               </span>
             </div>
 
-            <h1 class="font-display font-bold text-4xl sm:text-5xl text-white tracking-tight">
+            <h1 class="font-display font-black text-4xl sm:text-5xl text-[#111111] tracking-tight leading-tight">
               {{ project.title }}
             </h1>
 
-            <p class="text-slate-300 text-lg leading-relaxed max-w-3xl">
+            <p class="text-[#555555] text-lg leading-relaxed max-w-3xl font-semibold">
               {{ project.short_description }}
             </p>
           </div>
 
-          <!-- Featured Thumbnail / Header Visual -->
-          <div class="relative rounded-2xl overflow-hidden border border-[#17D9E8]/30 cyan-glow">
+          <!-- Featured Thumbnail -->
+          <div class="relative rounded-lg overflow-hidden border-2 border-[#111111] shadow-[6px_6px_0px_#111111]">
             <img
               :src="project.thumbnail_image || defaultImage"
               :alt="project.title"
               class="w-full h-80 sm:h-[450px] object-cover"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-[#0B1E3D] via-transparent to-transparent opacity-80"></div>
           </div>
 
           <!-- Description Section -->
-          <div class="card-brief p-8 sm:p-12 space-y-6">
-            <h2 class="font-display font-bold text-2xl text-white">Project Overview & Results</h2>
-            <div class="prose text-slate-300 text-sm leading-relaxed whitespace-pre-line">
+          <div class="card-brief p-8 sm:p-12 space-y-6 bg-white shadow-[4px_4px_0px_#111111]">
+            <h2 class="font-display font-black text-2xl text-[#111111]">Project Overview & Results</h2>
+            <div class="text-[#555555] text-sm leading-relaxed whitespace-pre-line font-semibold">
               {{ project.full_description }}
             </div>
 
             <!-- Tech Stack -->
-            <div v-if="project.technologies && project.technologies.length" class="pt-6 border-t border-slate-800">
-              <h3 class="font-display font-semibold text-white text-sm mb-3">Technologies & Architecture</h3>
+            <div v-if="project.technologies && project.technologies.length" class="pt-6 border-t-2 border-[#111111]/10">
+              <h3 class="font-display font-bold text-[#111111] text-sm mb-3">Technologies Used</h3>
               <div class="flex flex-wrap gap-2">
                 <span
                   v-for="tech in project.technologies"
                   :key="tech"
-                  class="font-data text-xs text-[#17D9E8] bg-[#061226] border border-[#17D9E8]/30 px-3 py-1 rounded"
+                  class="font-data text-xs font-bold text-[#111111] bg-white border-2 border-[#111111] px-3 py-1 rounded shadow-[1px_1px_0px_#111111]"
                 >
                   {{ tech }}
                 </span>
@@ -87,15 +95,9 @@
               <span>→</span>
             </a>
 
-            <a
-              v-if="project.github_url"
-              :href="project.github_url"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn-cyan-outline text-sm py-3 px-6"
-            >
-              <span>View Source Code</span>
-            </a>
+            <router-link to="/contact" class="btn-cyan-outline text-sm py-3 px-6">
+              <span>Discuss a Similar Project</span>
+            </router-link>
           </div>
         </div>
       </div>
