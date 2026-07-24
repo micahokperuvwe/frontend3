@@ -8,7 +8,7 @@
         <form @submit.prevent="handleLogin" class="space-y-6">
           <!-- API Key Input -->
           <div>
-            <label for="apiKey" class="block text-sm font-medium text-gray-900 dark:text-white mb-2">API Key</label>
+            <label for="apiKey" class="block text-sm font-medium text-gray-900 dark:text-white mb-2">password</label>
             <input
               id="apiKey"
               v-model="apiKey"
@@ -35,7 +35,7 @@
         </form>
 
         <p class="text-center text-gray-600 dark:text-gray-400 text-sm mt-6">
-          Don't have an API key? Contact the site owner.
+          Don't have the password? Contact the site owner.
         </p>
       </div>
     </div>
