@@ -1,21 +1,62 @@
 <template>
-  <div class="admin-page min-h-screen">
-    <header class="admin-header">
-      <div class="admin-header__inner">
-        <RouterLink to="/admin" class="admin-brand" aria-label="MICAH-WEB admin dashboard">
-          <span class="admin-brand__mark">M</span>
-          <span><strong>MICAH-WEB</strong><small>ADMIN CONTROL</small></span>
-        </RouterLink>
-        <nav class="admin-nav" aria-label="Admin navigation">
-          <RouterLink v-for="item in navigation" :key="item.to" :to="item.to" active-class="admin-nav__link--active" class="admin-nav__link">{{ item.label }}</RouterLink>
-        </nav>
-        <div class="admin-header__actions">
-          <RouterLink to="/" class="admin-site-link">View site</RouterLink>
-          <button type="button" class="admin-logout" @click="handleLogout">Log out</button>
+  <div class="min-h-screen bg-[var(--color-bg-main)] text-[var(--color-text-main)] relative selection:bg-[var(--color-text-main)] selection:text-[var(--color-bg-main)]">
+    <!-- Background pattern (floating squares/stars effect) -->
+    <div class="fixed inset-0 z-0 opacity-10 dark:opacity-20 pointer-events-none" style="background-image: radial-gradient(circle at 2px 2px, var(--color-border) 1px, transparent 0); background-size: 48px 48px;"></div>
+
+    <header class="sticky top-0 z-50 bg-[var(--color-bg-main)]/90 backdrop-blur-md border-b border-[var(--color-border)]/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20 relative">
+          
+          <!-- Left: Logo -->
+          <RouterLink to="/admin" class="flex items-center gap-2 group z-10">
+            <span class="font-display font-bold text-xl tracking-tight text-[var(--color-text-main)] group-hover:opacity-80 transition-opacity">
+              MICAH-WEB ADMIN
+            </span>
+          </RouterLink>
+
+          <!-- Center: Navigation -->
+          <nav class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center gap-6 z-10" aria-label="Admin navigation">
+            <RouterLink 
+              v-for="item in navigation" 
+              :key="item.to" 
+              :to="item.to" 
+              active-class="bg-[var(--color-text-main)] text-[var(--color-bg-main)] shadow-md" 
+              class="px-5 py-2 rounded-full text-sm font-semibold text-[var(--color-text-muted)] hover:text-[var(--color-text-main)] transition-all"
+            >
+              {{ item.label }}
+            </RouterLink>
+          </nav>
+
+          <!-- Right: Actions -->
+          <div class="flex items-center gap-5 z-10">
+            <RouterLink to="/" class="hidden md:block text-sm font-semibold text-[var(--color-text-muted)] hover:text-[var(--color-text-main)] transition-colors">
+              View site
+            </RouterLink>
+            <button type="button" class="bg-red-600/10 text-red-600 dark:text-red-400 font-semibold text-sm py-2 px-5 rounded-full hover:bg-red-600 hover:text-white transition-all" @click="handleLogout">
+              Log out
+            </button>
+          </div>
+
         </div>
       </div>
+      
+      <!-- Mobile Nav Scrollable -->
+      <div class="md:hidden overflow-x-auto px-4 py-3 border-t border-[var(--color-border)]/5 flex gap-4 no-scrollbar relative z-10">
+        <RouterLink 
+          v-for="item in navigation" 
+          :key="item.to" 
+          :to="item.to" 
+          active-class="bg-[var(--color-text-main)] text-[var(--color-bg-main)]" 
+          class="whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-semibold text-[var(--color-text-muted)]"
+        >
+          {{ item.label }}
+        </RouterLink>
+      </div>
     </header>
-    <main class="admin-content"><RouterView /></main>
+
+    <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <RouterView />
+    </main>
   </div>
 </template>
 
@@ -38,10 +79,13 @@ const handleLogout = () => {
 };
 </script>
 
-<style>
-.admin-page { --admin-blue: #0759d6; --admin-blue-dark: #0345ad; --admin-blue-pale: #e8f0ff; --admin-black: #111; min-height: 100vh; background: #fff; color: var(--admin-black); }
-.admin-header { background: #fff; border-bottom: 2px solid var(--admin-black); }.admin-header__inner { max-width: 80rem; min-height: 5rem; margin: 0 auto; padding: .75rem 1rem; display: flex; align-items: center; gap: 1.5rem; }.admin-brand { display: flex; align-items: center; gap: .65rem; min-width: max-content; }.admin-brand__mark { width: 2.35rem; height: 2.35rem; display: grid; place-items: center; background: var(--admin-blue); color: #fff; border: 2px solid var(--admin-black); box-shadow: 3px 3px 0 var(--admin-black); font: 800 1rem/1 'Plus Jakarta Sans', sans-serif; }.admin-brand strong,.admin-brand small { display:block; }.admin-brand strong { font:800 .95rem/1 'Plus Jakarta Sans',sans-serif; letter-spacing:-.03em; }.admin-brand small { margin-top:.18rem; font:700 .56rem/1 'JetBrains Mono',monospace; letter-spacing:.12em; }
-.admin-nav { display:flex; gap:.25rem; margin-left:auto; }.admin-nav__link,.admin-site-link,.admin-logout { border:1px solid transparent; padding:.45rem .65rem; font:700 .7rem/1 'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:.03em; }.admin-nav__link:hover,.admin-nav__link--active { background:var(--admin-blue-pale); border-color:var(--admin-black); }.admin-header__actions { display:flex; align-items:center; gap:.25rem; }.admin-site-link,.admin-page [class*='text-blue'] { color:var(--admin-blue-dark)!important; }.admin-logout { color:var(--admin-black); background:#fff; cursor:pointer; }.admin-logout:hover { background:var(--admin-black); color:#fff; }.admin-content { max-width:80rem; margin:0 auto; padding:3rem 1rem 5rem; }
-.admin-page h1,.admin-page h2,.admin-page h3 { color:var(--admin-black)!important; }.admin-page input,.admin-page textarea,.admin-page select { border:2px solid var(--admin-black)!important; border-radius:0!important; background:#fff!important; color:var(--admin-black)!important; box-shadow:none!important; }.admin-page input:focus,.admin-page textarea:focus,.admin-page select:focus { outline:3px solid var(--admin-blue-pale)!important; border-color:var(--admin-blue)!important; }.admin-page button { border-radius:0!important; }.admin-page button[class*='bg-blue'],.admin-page a[class*='bg-blue'] { background:var(--admin-blue)!important; border:2px solid var(--admin-black)!important; box-shadow:3px 3px 0 var(--admin-black); }.admin-page button[class*='bg-blue']:hover,.admin-page a[class*='bg-blue']:hover { background:var(--admin-blue-dark)!important; transform:translate(-1px,-1px); box-shadow:4px 4px 0 var(--admin-black); }.admin-page button[class*='bg-red'],.admin-page button[class*='bg-gray'] { background:#fff!important; color:var(--admin-black)!important; border:2px solid var(--admin-black)!important; }.admin-page [class*='bg-white'],.admin-page [class*='bg-gray'] { background-color:#fff!important; }.admin-page [class*='text-gray'],.admin-page [class*='text-red'],.admin-page [class*='text-green'],.admin-page [class*='text-yellow'] { color:var(--admin-black)!important; }.admin-page [class*='bg-red'],.admin-page [class*='bg-green'],.admin-page [class*='bg-yellow'] { background-color:var(--admin-blue-pale)!important; }.admin-page [class*='border-gray'],.admin-page [class*='divide-gray'] { border-color:var(--admin-black)!important; }.admin-page .shadow,.admin-page .shadow-md,.admin-page .shadow-lg { border:2px solid var(--admin-black)!important; box-shadow:4px 4px 0 var(--admin-black)!important; }
-@media (max-width:900px) { .admin-header__inner { flex-wrap:wrap; gap:.75rem; }.admin-nav { order:3; width:100%; overflow-x:auto; margin-left:0; }.admin-header__actions { margin-left:auto; } } @media (max-width:520px) { .admin-content { padding-top:2rem; }.admin-site-link { display:none; } }
+<style scoped>
+/* Hide scrollbar for mobile nav */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 </style>

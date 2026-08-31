@@ -1,18 +1,18 @@
 <template>
-  <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+  <div class="min-h-screen bg-transparent ">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <!-- Header -->
-      <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">Contact Submissions</h1>
+      <h1 class="text-3xl font-bold text-[var(--color-text-main)]  mb-8">Contact Submissions</h1>
 
       <!-- Filter Tabs -->
-      <div class="mb-8 flex gap-4 border-b border-gray-300 dark:border-gray-700">
+      <div class="mb-8 flex gap-4 border-b border-[var(--color-border)]/20 ">
         <button
           v-for="status in ['unread', 'read', 'spam']"
           :key="status"
           @click="selectedStatus = status"
           :class="{
-            'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400': selectedStatus === status,
-            'text-gray-600 dark:text-gray-400': selectedStatus !== status,
+            'border-b-2 border-blue-600 text-[var(--color-text-main)] ': selectedStatus === status,
+            'text-[var(--color-text-muted)] ': selectedStatus !== status,
           }"
           class="px-4 py-2 font-semibold transition-colors"
         >
@@ -28,18 +28,18 @@
 
       <!-- Submissions List -->
       <div v-else-if="filteredSubmissions.length > 0" class="space-y-4">
-        <div v-for="submission in filteredSubmissions" :key="submission._id" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow hover:shadow-lg transition-shadow">
+        <div v-for="submission in filteredSubmissions" :key="submission._id" class="bg-[var(--color-bg-main)]  p-6 rounded-2xl shadow hover:shadow-lg transition-shadow">
           <div class="flex justify-between items-start mb-4">
             <div class="flex-1">
-              <h3 class="font-semibold text-gray-900 dark:text-white">{{ submission.name }}</h3>
-              <p class="text-sm text-gray-600 dark:text-gray-400">{{ submission.email }}</p>
-              <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">{{ formatDate(submission.submitted_at) }}</p>
+              <h3 class="font-semibold text-[var(--color-text-main)] ">{{ submission.name }}</h3>
+              <p class="text-sm text-[var(--color-text-muted)] ">{{ submission.email }}</p>
+              <p class="text-xs text-[var(--color-text-muted)] dark:text-[var(--color-text-muted)] mt-1">{{ formatDate(submission.submitted_at) }}</p>
             </div>
             <span
               :class="{
                 'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200': submission.status === 'spam',
                 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200': submission.status === 'unread',
-                'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300': submission.status === 'read',
+                'bg-transparent dark:bg-gray-700 text-[var(--color-text-main)] dark:text-gray-300': submission.status === 'read',
               }"
               class="px-3 py-1 rounded-full text-sm font-semibold capitalize"
             >
@@ -47,13 +47,13 @@
             </span>
           </div>
 
-          <p class="text-gray-700 dark:text-gray-300 mb-4 whitespace-pre-wrap">{{ submission.message }}</p>
+          <p class="text-[var(--color-text-main)] dark:text-gray-300 mb-4 whitespace-pre-wrap">{{ submission.message }}</p>
 
           <div class="flex gap-4">
             <button
               v-if="submission.status !== 'read'"
               @click="markStatus(submission._id, 'read')"
-              class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-medium text-sm"
+              class="text-[var(--color-text-main)] hover:text-blue-700  font-medium text-sm"
             >
               Mark as Read
             </button>
@@ -72,8 +72,8 @@
       </div>
 
       <!-- Empty state -->
-      <div v-else class="bg-white dark:bg-gray-800 rounded-lg shadow p-12 text-center">
-        <p class="text-gray-600 dark:text-gray-400">No {{ selectedStatus }} submissions</p>
+      <div v-else class="bg-[var(--color-bg-main)]  rounded-2xl shadow p-12 text-center">
+        <p class="text-[var(--color-text-muted)] ">No {{ selectedStatus }} submissions</p>
       </div>
     </div>
   </div>

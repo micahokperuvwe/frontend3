@@ -1,12 +1,12 @@
 <template>
-  <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+  <div class="min-h-screen bg-transparent ">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <!-- Header -->
       <div class="mb-8 flex justify-between items-center">
-        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Projects</h1>
+        <h1 class="text-3xl font-bold text-[var(--color-text-main)] ">Projects</h1>
         <RouterLink
           to="/admin/projects/create"
-          class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
+          class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-2xl transition-colors"
         >
           + New Project
         </RouterLink>
@@ -18,25 +18,25 @@
       </div>
 
       <!-- Error state -->
-      <div v-else-if="error" class="bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 p-4 rounded-lg">
+      <div v-else-if="error" class="bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 p-4 rounded-2xl">
         {{ error }}
       </div>
 
       <!-- Projects Table -->
-      <div v-else-if="projects.length > 0" class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-x-auto">
+      <div v-else-if="projects.length > 0" class="bg-[var(--color-bg-main)]  rounded-2xl shadow overflow-x-auto">
         <table class="w-full">
-          <thead class="bg-gray-50 dark:bg-gray-700">
+          <thead class="bg-[var(--color-bg-sec)] dark:bg-gray-700">
             <tr>
-              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Title</th>
-              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Status</th>
-              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Published</th>
-              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Featured</th>
-              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Actions</th>
+              <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--color-text-main)] ">Title</th>
+              <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--color-text-main)] ">Status</th>
+              <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--color-text-main)] ">Published</th>
+              <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--color-text-main)] ">Featured</th>
+              <th class="px-6 py-3 text-left text-sm font-semibold text-[var(--color-text-main)] ">Actions</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-            <tr v-for="project in projects" :key="project._id" class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-              <td class="px-6 py-4 text-sm text-gray-900 dark:text-white font-medium">{{ project.title }}</td>
+          <tbody class="divide-y divide-[var(--color-border)]/20 ">
+            <tr v-for="project in projects" :key="project._id" class="hover:bg-[var(--color-bg-sec)] dark:hover:bg-gray-700 transition-colors">
+              <td class="px-6 py-4 text-sm text-[var(--color-text-main)]  font-medium">{{ project.title }}</td>
               <td class="px-6 py-4 text-sm">
                 <span
                   :class="{
@@ -44,7 +44,7 @@
                       project.status === 'in_progress',
                     'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200':
                       project.status === 'completed',
-                    'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300':
+                    'bg-transparent dark:bg-gray-700 text-[var(--color-text-main)] dark:text-gray-300':
                       project.status === 'archived',
                   }"
                   class="px-3 py-1 rounded-full text-xs font-semibold capitalize"
@@ -53,17 +53,17 @@
                 </span>
               </td>
               <td class="px-6 py-4 text-sm">
-                <span :class="project.published ? 'text-green-600 dark:text-green-400' : 'text-gray-400 dark:text-gray-500'">
+                <span :class="project.published ? 'text-green-600 dark:text-green-400' : 'text-[var(--color-text-muted)] dark:text-[var(--color-text-muted)]'">
                   {{ project.published ? '✓' : '✗' }}
                 </span>
               </td>
               <td class="px-6 py-4 text-sm">
-                <span :class="project.featured ? 'text-yellow-600 dark:text-yellow-400' : 'text-gray-400 dark:text-gray-500'">
+                <span :class="project.featured ? 'text-yellow-600 dark:text-yellow-400' : 'text-[var(--color-text-muted)] dark:text-[var(--color-text-muted)]'">
                   {{ project.featured ? '★' : '☆' }}
                 </span>
               </td>
               <td class="px-6 py-4 text-sm space-x-4">
-                <RouterLink :to="`/admin/projects/${project._id}/edit`" class="text-blue-600 hover:text-blue-700 dark:text-blue-400 font-medium">
+                <RouterLink :to="`/admin/projects/${project._id}/edit`" class="text-[var(--color-text-main)] hover:text-blue-700  font-medium">
                   Edit
                 </RouterLink>
                 <button @click="deleteProject(project._id)" class="text-red-600 hover:text-red-700 dark:text-red-400 font-medium">
@@ -76,11 +76,11 @@
       </div>
 
       <!-- Empty state -->
-      <div v-else class="bg-white dark:bg-gray-800 rounded-lg shadow p-12 text-center">
-        <p class="text-gray-600 dark:text-gray-400 mb-4">No projects yet</p>
+      <div v-else class="bg-[var(--color-bg-main)]  rounded-2xl shadow p-12 text-center">
+        <p class="text-[var(--color-text-muted)]  mb-4">No projects yet</p>
         <RouterLink
           to="/admin/projects/create"
-          class="inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
+          class="inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-2xl transition-colors"
         >
           Create Your First Project
         </RouterLink>

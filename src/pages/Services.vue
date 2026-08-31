@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-white text-[#111111] flex flex-col justify-between">
+  <div class="min-h-screen bg-[var(--color-bg-main)] text-[var(--color-text-main)] flex flex-col justify-between">
     <Navbar />
 
     <main class="flex-1 py-16">
@@ -9,10 +9,10 @@
           <span class="section-label">
             SOLUTIONS & CAPABILITIES
           </span>
-          <h1 class="font-display font-black text-4xl sm:text-5xl text-[#111111] mt-4">
+          <h1 class="font-display font-black text-4xl sm:text-5xl text-[var(--color-text-main)] mt-4">
             High-Performance Web Solutions
           </h1>
-          <p class="text-[#555555] text-base leading-relaxed font-semibold">
+          <p class="text-[var(--color-text-muted)] text-base leading-relaxed font-semibold">
             From conversion-ready design systems to production-grade Node.js / Vue 3 full-stack applications, we build digital products engineered for growth.
           </p>
         </div>
@@ -75,32 +75,32 @@
         </div>
 
         <!-- How It Works / Process -->
-        <div class="card-brief p-10 sm:p-12 mb-20 bg-white shadow-[6px_6px_0px_#111111]">
+        <div class="card-brief p-10 sm:p-12 mb-20 bg-[var(--color-bg-main)] shadow-[6px_6px_0px_var(--color-border)]">
           <div class="text-center max-w-2xl mx-auto mb-12">
-            <span class="font-data text-xs font-bold text-[#111111] bg-[#facc15] px-2 py-0.5 border border-[#111111] rounded shadow-[1px_1px_0px_#111111]">PROCESS</span>
-            <h2 class="font-display font-black text-3xl text-[#111111] mt-3">How We Deliver Results</h2>
+            <span class="font-data text-xs font-bold bg-[var(--color-accent)] text-[var(--color-accent-text)] px-2 py-0.5 border border-[var(--color-border)] rounded shadow-[1px_1px_0px_var(--color-border)]">PROCESS</span>
+            <h2 class="font-display font-black text-3xl text-[var(--color-text-main)] mt-3">How We Deliver Results</h2>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-left">
             <div class="space-y-3">
-              <div class="font-data font-black text-2xl text-[#111111]">01. AUDIT</div>
-              <h3 class="font-display text-lg font-bold text-[#111111]">Strategy & Goal Setting</h3>
-              <p class="text-xs text-[#555555] leading-relaxed font-semibold">Analyzing target audience, competitors, and conversion metrics to map out project goals.</p>
+              <div class="font-data font-black text-2xl text-[var(--color-text-main)]">01. AUDIT</div>
+              <h3 class="font-display text-lg font-bold text-[var(--color-text-main)]">Strategy & Goal Setting</h3>
+              <p class="text-xs text-[var(--color-text-muted)] leading-relaxed font-semibold">Analyzing target audience, competitors, and conversion metrics to map out project goals.</p>
             </div>
             <div class="space-y-3">
-              <div class="font-data font-black text-2xl text-[#111111]">02. WIREFRAME</div>
-              <h3 class="font-display text-lg font-bold text-[#111111]">Layout Blueprint</h3>
-              <p class="text-xs text-[#555555] leading-relaxed font-semibold">Structuring headlines, value props, and solid CTA paths for optimum conversion flow.</p>
+              <div class="font-data font-black text-2xl text-[var(--color-text-main)]">02. WIREFRAME</div>
+              <h3 class="font-display text-lg font-bold text-[var(--color-text-main)]">Layout Blueprint</h3>
+              <p class="text-xs text-[var(--color-text-muted)] leading-relaxed font-semibold">Structuring headlines, value props, and solid CTA paths for optimum conversion flow.</p>
             </div>
             <div class="space-y-3">
-              <div class="font-data font-black text-2xl text-[#111111]">03. CODE</div>
-              <h3 class="font-display text-lg font-bold text-[#111111]">Build & Integrate</h3>
-              <p class="text-xs text-[#555555] leading-relaxed font-semibold">Crafting custom Vue 3 components and integrating fast Express / MongoDB backends.</p>
+              <div class="font-data font-black text-2xl text-[var(--color-text-main)]">03. CODE</div>
+              <h3 class="font-display text-lg font-bold text-[var(--color-text-main)]">Build & Integrate</h3>
+              <p class="text-xs text-[var(--color-text-muted)] leading-relaxed font-semibold">Crafting custom Vue 3 components and integrating fast Express / MongoDB backends.</p>
             </div>
             <div class="space-y-3">
-              <div class="font-data font-black text-2xl text-[#111111] bg-[#facc15] px-1 border border-[#111111] rounded shadow-[1px_1px_0px_#111111]">04. LAUNCH</div>
-              <h3 class="font-display text-lg font-bold text-[#111111] mt-2">Deploy & Scale</h3>
-              <p class="text-xs text-[#555555] leading-relaxed font-semibold">Rigorous performance testing, SEO optimization, and live deployment.</p>
+              <div class="font-data font-black text-2xl bg-[var(--color-accent)] text-[var(--color-accent-text)] px-1 border border-[var(--color-border)] rounded shadow-[1px_1px_0px_var(--color-border)]">04. LAUNCH</div>
+              <h3 class="font-display text-lg font-bold text-[var(--color-text-main)] mt-2">Deploy & Scale</h3>
+              <p class="text-xs text-[var(--color-text-muted)] leading-relaxed font-semibold">Rigorous performance testing, SEO optimization, and live deployment.</p>
             </div>
           </div>
         </div>

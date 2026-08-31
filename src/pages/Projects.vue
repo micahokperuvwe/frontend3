@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-white text-[#111111] flex flex-col justify-between">
+  <div class="min-h-screen bg-[var(--color-bg-main)] text-[var(--color-text-main)] flex flex-col justify-between">
     <Navbar />
 
     <main class="flex-1 py-16">
@@ -9,10 +9,10 @@
         <div class="mb-12">
           <p class="section-label mb-3">Work & Projects</p>
           <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-            <h1 class="font-display font-black text-3xl sm:text-4xl text-[#111111]">
+            <h1 class="font-display font-black text-3xl sm:text-4xl text-[var(--color-text-main)]">
               Things I've Built
             </h1>
-            <p class="text-sm text-[#555555] max-w-md leading-relaxed font-semibold">
+            <p class="text-sm text-[var(--color-text-muted)] max-w-md leading-relaxed font-semibold">
               A collection of live applications, digital products, and design solutions completed under MICAH-WEB.
             </p>
           </div>
@@ -26,10 +26,10 @@
             v-for="cat in categories"
             :key="cat"
             @click="activeCategory = cat"
-            class="text-xs px-3.5 py-1.5 rounded font-bold transition-all border-2 border-[#111111]"
+            class="text-xs px-3.5 py-1.5 rounded font-bold transition-all border-2 border-[var(--color-border)]"
             :class="activeCategory === cat
-              ? 'bg-[#facc15] text-[#111111] shadow-[2px_2px_0px_#111111]'
-              : 'bg-white text-[#555555] hover:bg-[#f8f9fa] hover:text-[#111111]'"
+              ? 'bg-[var(--color-accent)] texttext-[var(--color-text-main)] shadow-[2px_2px_0px_var(--color-border)]'
+              : 'bg-[var(--color-bg-main)] text-[var(--color-text-muted)] hover:bg-[var(--color-bg-sec)] hover:text-[var(--color-text-main)]'"
           >
             {{ cat }}
           </button>
@@ -37,8 +37,8 @@
 
         <!-- Loading State -->
         <div v-if="loading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          <div v-for="i in 6" :key="i" class="card-brief overflow-hidden bg-white">
-            <div class="skeleton h-48 border-b-2 border-[#111111]"></div>
+          <div v-for="i in 6" :key="i" class="card-brief overflow-hidden bg-[var(--color-bg-main)]">
+            <div class="skeleton h-48 border-b-2 border-[var(--color-border)]"></div>
             <div class="p-5 space-y-3">
               <div class="skeleton h-4 w-3/4"></div>
               <div class="skeleton h-3 w-full"></div>
@@ -52,7 +52,7 @@
         </div>
 
         <!-- Error Notice (DB offline) -->
-        <div v-else-if="error" class="mb-6 text-xs text-amber-600 bg-amber-50 border-2 border-[#111111] px-4 py-3 rounded shadow-[2px_2px_0px_#111111] font-semibold">
+        <div v-else-if="error" class="mb-6 text-xs text-amber-600 bg-amber-50 border-2 border-[var(--color-border)] px-4 py-3 rounded shadow-[2px_2px_0px_var(--color-border)] font-semibold">
           ⚠️ Could not reach the database — showing sample projects. Start the backend to see your saved projects.
         </div>
 
@@ -74,14 +74,14 @@
 
         <!-- Empty state -->
         <div v-if="!loading && filteredProjects.length === 0" class="text-center py-20">
-          <div class="text-[#555555] text-sm font-semibold">No projects found in this category.</div>
+          <div class="text-[var(--color-text-muted)] text-sm font-semibold">No projects found in this category.</div>
         </div>
 
         <!-- Bottom CTA -->
-        <div class="border-2 border-[#111111] rounded-lg p-8 sm:p-10 flex flex-col sm:flex-row items-center justify-between gap-6 bg-white shadow-[4px_4px_0px_#111111]">
+        <div class="border-2 border-[var(--color-border)] rounded-lg p-8 sm:p-10 flex flex-col sm:flex-row items-center justify-between gap-6 bg-[var(--color-bg-main)] shadow-[4px_4px_0px_var(--color-border)]">
           <div>
-            <h2 class="font-display font-black text-xl text-[#111111] mb-1">Have a project in mind?</h2>
-            <p class="text-sm text-[#555555] font-semibold">Get in touch and let's talk about what you need.</p>
+            <h2 class="font-display font-black text-xl text-[var(--color-text-main)] mb-1">Have a project in mind?</h2>
+            <p class="text-sm text-[var(--color-text-muted)] font-semibold">Get in touch and let's talk about what you need.</p>
           </div>
           <router-link to="/contact" class="btn-amber shrink-0">
             Contact Micah →
