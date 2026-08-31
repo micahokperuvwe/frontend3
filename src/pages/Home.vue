@@ -46,14 +46,6 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-36 lg:py-44">
           <div class="max-w-4xl space-y-10 text-left">
 
-            <!-- Intro badge -->
-            <div class="hero-badge inline-flex items-center gap-2.5 px-4 py-2 border border-[var(--color-border)]/30 rounded-full text-xs font-semibold tracking-widest uppercase text-[var(--color-text-muted)] backdrop-blur-sm" style="background:rgba(128,128,128,0.08)">
-              <span class="relative flex h-2 w-2">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-text-main)] opacity-50"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-text-main)]"></span>
-              </span>
-              Full Stack Digital Architect &middot; Micah Okperuvwe
-            </div>
 
             <!-- Main headline - staggered word animation -->
             <h1 class="font-display font-bold text-5xl sm:text-6xl lg:text-7xl text-[var(--color-text-main)] tracking-tight leading-[1.08]">
@@ -99,6 +91,18 @@
         </div>
       </section>
 
+      <!-- ===== MARQUEE TICKER SLIDER ===== -->
+      <div class="marquee-strip border-y border-[var(--color-border)]/10 py-4 overflow-hidden">
+        <div class="marquee-track">
+          <div class="marquee-content" v-for="n in 2" :key="n">
+            <span v-for="item in marqueeItems" :key="item.label" class="marquee-item">
+              <span class="marquee-dot">✦</span>
+              {{ item.label }}
+            </span>
+          </div>
+        </div>
+      </div>
+
       <!-- DATA CALLOUTS -->
       <section class="py-16 bg-[var(--color-bg-sec)] border-b border-[var(--color-border)]/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -140,7 +144,7 @@
         </div>
       </section>
 
-      <!-- FEATURED PROJECTS -->
+      <!-- FEATURED PROJECTS CAROUSEL -->
       <section class="py-20 bg-[var(--color-bg-sec)] border-b border-[var(--color-border)]/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
@@ -148,19 +152,66 @@
               <span class="section-label mb-3">Selected Works</span>
               <h2 class="font-display font-black text-3xl text-[var(--color-text-main)] mt-4">Recent Projects</h2>
             </div>
-            <router-link to="/case-studies" class="btn-cyan-outline text-xs py-2.5 px-5 w-fit">View All Projects &#8594;</router-link>
+            <div class="flex items-center gap-4">
+              <!-- Prev / Next arrows -->
+              <button @click="prevSlide" class="slider-arrow" :class="{ 'opacity-30 cursor-not-allowed': sliderIndex === 0 }" :disabled="sliderIndex === 0" aria-label="Previous">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+              </button>
+              <button @click="nextSlide" class="slider-arrow" :class="{ 'opacity-30 cursor-not-allowed': sliderIndex >= maxIndex }" :disabled="sliderIndex >= maxIndex" aria-label="Next">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </button>
+              <router-link to="/case-studies" class="btn-cyan-outline text-xs py-2.5 px-5">View All &#8594;</router-link>
+            </div>
           </div>
+
+          <!-- Skeleton loading -->
           <div v-if="projectsLoading" class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div v-for="i in 3" :key="i" class="card-brief overflow-hidden bg-[var(--color-bg-main)]">
               <div class="skeleton h-48 border-b-2 border-[var(--color-border)]"></div>
               <div class="p-5 space-y-3"><div class="skeleton h-4 w-3/4"></div><div class="skeleton h-3 w-full"></div></div>
             </div>
           </div>
-          <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <ProjectCard v-for="project in featuredProjects" :key="project.slug || project._id" :title="project.title" :description="project.short_description || project.description || ''" :category="project.category" :slug="project.slug" :imageUrl="project.thumbnail_image || project.imageUrl || ''" :technologies="project.technologies || []" :resultMetric="project.resultMetric || ''" :liveUrl="project.demo_url || ''" />
+
+          <!-- Carousel viewport -->
+          <div v-else class="slider-viewport overflow-hidden">
+            <div
+              class="slider-track"
+              :style="{ transform: `translateX(-${sliderIndex * slideStep}%)`, transition: 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)' }"
+            >
+              <div
+                v-for="project in featuredProjects"
+                :key="project.slug || project._id"
+                class="slider-item"
+              >
+                <ProjectCard
+                  :title="project.title"
+                  :description="project.short_description || project.description || ''"
+                  :category="project.category"
+                  :slug="project.slug"
+                  :imageUrl="project.thumbnail_image || project.imageUrl || ''"
+                  :technologies="project.technologies || []"
+                  :resultMetric="project.resultMetric || ''"
+                  :liveUrl="project.demo_url || ''"
+                />
+              </div>
+            </div>
           </div>
+
+          <!-- Dot indicators -->
+          <div v-if="!projectsLoading" class="flex justify-center gap-2 mt-8">
+            <button
+              v-for="(_, i) in dotCount"
+              :key="i"
+              @click="sliderIndex = i"
+              class="slider-dot"
+              :class="{ 'slider-dot--active': sliderIndex === i }"
+              :aria-label="`Go to slide ${i + 1}`"
+            ></button>
+          </div>
+
         </div>
       </section>
+
 
       <!-- CTA BANNER -->
       <section class="py-20 bg-[var(--color-bg-main)]">
@@ -184,7 +235,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import Navbar from '../components/Navbar.vue';
 import Footer from '../components/Footer.vue';
 import DataCallout from '../components/DataCallout.vue';
@@ -198,13 +249,34 @@ const heroStats = [
   { value: '99.9%', label: 'System Uptime' },
 ];
 
+// ── Marquee ticker items ──
+const marqueeItems = [
+  { label: 'Vue 3' }, { label: 'TypeScript' }, { label: 'Node.js' },
+  { label: 'MongoDB' }, { label: 'Tailwind CSS' }, { label: 'REST APIs' },
+  { label: 'Cloudinary' }, { label: 'Express.js' }, { label: 'Pinia' },
+  { label: 'Vite' }, { label: 'Full Stack' }, { label: 'UI/UX Design' },
+];
+
+// ── Projects slider state ──
+const sliderIndex = ref(0);
+const visiblePerView = 3; // show 3 cards at once on desktop
+
 const projectsLoading = ref(true);
 const featuredProjects = ref<any[]>([]);
+
+const slideStep = computed(() => 100 / visiblePerView);
+const maxIndex = computed(() => Math.max(0, featuredProjects.value.length - visiblePerView));
+const dotCount = computed(() => Math.max(1, featuredProjects.value.length - visiblePerView + 1));
+
+const prevSlide = () => { if (sliderIndex.value > 0) sliderIndex.value--; };
+const nextSlide = () => { if (sliderIndex.value < maxIndex.value) sliderIndex.value++; };
 
 const staticFallback = [
   { _id: 's1', title: 'Fintech Analytics Dashboard', slug: 'fintech-analytics-dashboard', short_description: 'Real-time analytics web app for enterprise financial tracking.', category: 'FINTECH / SAAS', thumbnail_image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80', technologies: ['Vue 3', 'TypeScript', 'MongoDB'], resultMetric: '+240% Growth', demo_url: '' },
   { _id: 's2', title: 'E-Commerce Conversion Redesign', slug: 'nextgen-ecommerce-redesign', short_description: 'Rebuilt checkout flow, resulting in record conversion rates.', category: 'E-COMMERCE', thumbnail_image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80', technologies: ['Tailwind CSS', 'Pinia', 'Express'], resultMetric: '3.8x Sales', demo_url: '' },
   { _id: 's3', title: 'Data Intelligence Portal', slug: 'enterprise-data-portal', short_description: 'Platform for real-time lead ingestion and executive reporting.', category: 'ANALYTICS', thumbnail_image: 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=800&q=80', technologies: ['TypeScript', 'Zod', 'Cloudinary'], resultMetric: '99.9% Uptime', demo_url: '' },
+  { _id: 's4', title: 'Brand Portfolio Platform', slug: 'brand-portfolio-platform', short_description: 'Custom CMS-driven portfolio site with admin dashboard.', category: 'PORTFOLIO', thumbnail_image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=800&q=80', technologies: ['Vue 3', 'Express', 'Cloudinary'], resultMetric: '100% Custom', demo_url: '' },
+  { _id: 's5', title: 'Lead Generation System', slug: 'lead-gen-system', short_description: 'High-converting landing page funnel with CRM integration.', category: 'MARKETING', thumbnail_image: 'https://images.unsplash.com/photo-1533750516457-a7f992034fec?auto=format&fit=crop&w=800&q=80', technologies: ['Vue 3', 'TypeScript', 'MongoDB'], resultMetric: '+320% Leads', demo_url: '' },
 ];
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
@@ -213,7 +285,7 @@ onMounted(async () => {
   try {
     const res = await axios.get(API_BASE + '/api/projects', { timeout: 6000 });
     const live = Array.isArray(res.data) ? res.data : [];
-    featuredProjects.value = live.length > 0 ? live.slice(0, 3) : staticFallback;
+    featuredProjects.value = live.length > 0 ? live : staticFallback;
   } catch {
     featuredProjects.value = staticFallback;
   } finally {
@@ -221,6 +293,7 @@ onMounted(async () => {
   }
 });
 </script>
+
 
 <style scoped>
 /* DOT GRID */
@@ -367,4 +440,115 @@ onMounted(async () => {
 /* STAT ITEMS */
 .stat-item { transition: transform 0.3s ease; cursor: default; }
 .stat-item:hover { transform: translateY(-5px); }
+
+/* ══════════════════════════════════════════════
+   MARQUEE INFINITE TICKER
+══════════════════════════════════════════════ */
+.marquee-strip {
+  background: var(--color-bg-main);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+.marquee-content {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-shrink: 0;
+}
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0 2rem;
+  font-family: var(--font-sc);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+.marquee-item:hover {
+  color: var(--color-text-main);
+}
+.marquee-dot {
+  font-size: 0.5rem;
+  color: var(--color-text-main);
+  opacity: 0.4;
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ══════════════════════════════════════════════
+   PROJECTS CAROUSEL SLIDER
+══════════════════════════════════════════════ */
+.slider-viewport {
+  width: 100%;
+  position: relative;
+}
+.slider-track {
+  display: flex;
+  width: 100%;
+}
+.slider-item {
+  flex: 0 0 calc(100% / 3);
+  padding: 0 0.75rem;
+  box-sizing: border-box;
+}
+@media (max-width: 768px) {
+  .slider-item {
+    flex: 0 0 100%;
+    padding: 0;
+  }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .slider-item {
+    flex: 0 0 50%;
+  }
+}
+
+/* Arrow buttons */
+.slider-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1.5px solid var(--color-border);
+  background: var(--color-bg-main);
+  color: var(--color-text-main);
+  transition: all 0.15s ease;
+}
+.slider-arrow:not(:disabled):hover {
+  background: var(--color-text-main);
+  color: var(--color-bg-main);
+}
+
+/* Dot indicators */
+.slider-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-border);
+  background: transparent;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.slider-dot--active {
+  background: var(--color-text-main);
+  border-color: var(--color-text-main);
+  width: 24px;
+  border-radius: 4px;
+}
 </style>
+
