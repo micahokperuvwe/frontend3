@@ -241,7 +241,7 @@ import Footer from '../components/Footer.vue';
 import DataCallout from '../components/DataCallout.vue';
 import ServiceCard from '../components/ServiceCard.vue';
 import ProjectCard from '../components/ProjectCard.vue';
-import axios from 'axios';
+import api from '../utils/api';
 
 const heroStats = [
   { value: '+184%', label: 'Conversion Lift' },
@@ -279,11 +279,10 @@ const staticFallback = [
   { _id: 's5', title: 'Lead Generation System', slug: 'lead-gen-system', short_description: 'High-converting landing page funnel with CRM integration.', category: 'MARKETING', thumbnail_image: 'https://images.unsplash.com/photo-1533750516457-a7f992034fec?auto=format&fit=crop&w=800&q=80', technologies: ['Vue 3', 'TypeScript', 'MongoDB'], resultMetric: '+320% Leads', demo_url: '' },
 ];
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
 
 onMounted(async () => {
   try {
-    const res = await axios.get(API_BASE + '/api/projects', { timeout: 6000 });
+    const res = await api.get('/api/projects');
     const live = Array.isArray(res.data) ? res.data : [];
     featuredProjects.value = live.length > 0 ? live : staticFallback;
   } catch {
