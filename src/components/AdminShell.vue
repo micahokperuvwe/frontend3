@@ -3,60 +3,63 @@
     <!-- Background pattern (floating squares/stars effect) -->
     <div class="fixed inset-0 z-0 opacity-10 dark:opacity-20 pointer-events-none" style="background-image: radial-gradient(circle at 2px 2px, var(--color-border) 1px, transparent 0); background-size: 48px 48px;"></div>
 
-    <header class="sticky top-0 z-50 bg-[var(--color-bg-main)]/90 backdrop-blur-md border-b border-[var(--color-border)]/10">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-20 relative">
-          
-          <!-- Left: Logo -->
-          <RouterLink to="/admin" class="flex items-center gap-2 group z-10">
-            <span class="font-display font-bold text-xl tracking-tight text-[var(--color-text-main)] group-hover:opacity-80 transition-opacity">
-              MICAH-WEB ADMIN
-            </span>
+    <div class="relative z-10 flex min-h-screen">
+      <aside class="hidden md:flex md:w-64 shrink-0 flex-col border-r border-[var(--color-border)]/15 bg-[var(--color-bg-main)] sticky top-0 h-screen">
+        <div class="p-6 border-b border-[var(--color-border)]/15">
+          <RouterLink to="/admin" class="font-display font-bold text-xl tracking-tight hover:opacity-80 transition-opacity">
+            MICAH-WEB
+            <span class="block font-data text-[10px] text-[var(--color-text-muted)] mt-2 tracking-widest">ADMIN PANEL</span>
           </RouterLink>
+        </div>
 
-          <!-- Center: Navigation -->
-          <nav class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center gap-6 z-10" aria-label="Admin navigation">
-            <RouterLink 
-              v-for="item in navigation" 
-              :key="item.to" 
-              :to="item.to" 
-              active-class="bg-[var(--color-text-main)] text-[var(--color-bg-main)] shadow-md" 
-              class="px-5 py-2 rounded-full text-sm font-semibold text-[var(--color-text-muted)] hover:text-[var(--color-text-main)] transition-all"
+        <nav class="flex-1 p-4 space-y-2" aria-label="Admin navigation">
+          <RouterLink
+            v-for="item in navigation"
+            :key="item.to"
+            :to="item.to"
+            :active-class="item.exact ? '' : 'bg-[var(--color-text-main)] text-[var(--color-bg-main)]'"
+            exact-active-class="bg-[var(--color-text-main)] text-[var(--color-bg-main)]"
+            class="block px-4 py-3 text-sm font-semibold text-[var(--color-text-muted)] hover:bg-[var(--color-bg-sec)] hover:text-[var(--color-text-main)] transition-colors"
+          >
+            {{ item.label }}
+          </RouterLink>
+        </nav>
+
+        <div class="p-4 border-t border-[var(--color-border)]/15 space-y-2">
+          <RouterLink to="/" class="block px-4 py-3 text-sm font-semibold text-[var(--color-text-muted)] hover:text-[var(--color-text-main)] transition-colors">
+            View site
+          </RouterLink>
+          <button type="button" class="w-full text-left px-4 py-3 text-sm font-semibold text-red-600 dark:text-red-400 hover:bg-red-600 hover:text-white transition-colors" @click="handleLogout">
+            Log out
+          </button>
+        </div>
+      </aside>
+
+      <div class="flex-1 min-w-0">
+        <header class="md:hidden sticky top-0 z-50 bg-[var(--color-bg-main)]/95 backdrop-blur-md border-b border-[var(--color-border)]/15">
+          <div class="px-4 py-4 flex items-center justify-between">
+            <RouterLink to="/admin" class="font-display font-bold text-lg">MICAH-WEB ADMIN</RouterLink>
+            <button type="button" class="text-sm font-semibold text-red-600 dark:text-red-400" @click="handleLogout">Log out</button>
+          </div>
+          <nav class="overflow-x-auto px-4 pb-3 flex gap-2 no-scrollbar" aria-label="Admin navigation">
+            <RouterLink
+              v-for="item in navigation"
+              :key="item.to"
+              :to="item.to"
+              :active-class="item.exact ? '' : 'bg-[var(--color-text-main)] text-[var(--color-bg-main)]'"
+              exact-active-class="bg-[var(--color-text-main)] text-[var(--color-bg-main)]"
+              class="whitespace-nowrap px-4 py-2 text-xs font-semibold text-[var(--color-text-muted)] border border-[var(--color-border)]/20"
             >
               {{ item.label }}
             </RouterLink>
           </nav>
+        </header>
 
-          <!-- Right: Actions -->
-          <div class="flex items-center gap-5 z-10">
-            <RouterLink to="/" class="hidden md:block text-sm font-semibold text-[var(--color-text-muted)] hover:text-[var(--color-text-main)] transition-colors">
-              View site
-            </RouterLink>
-            <button type="button" class="bg-red-600/10 text-red-600 dark:text-red-400 font-semibold text-sm py-2 px-5 rounded-full hover:bg-red-600 hover:text-white transition-all" @click="handleLogout">
-              Log out
-            </button>
-          </div>
-
-        </div>
+        <main class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <RouterView />
+        </main>
       </div>
-      
-      <!-- Mobile Nav Scrollable -->
-      <div class="md:hidden overflow-x-auto px-4 py-3 border-t border-[var(--color-border)]/5 flex gap-4 no-scrollbar relative z-10">
-        <RouterLink 
-          v-for="item in navigation" 
-          :key="item.to" 
-          :to="item.to" 
-          active-class="bg-[var(--color-text-main)] text-[var(--color-bg-main)]" 
-          class="whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-semibold text-[var(--color-text-muted)]"
-        >
-          {{ item.label }}
-        </RouterLink>
-      </div>
-    </header>
-
-    <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <RouterView />
-    </main>
+    </div>
   </div>
 </template>
 
@@ -67,10 +70,8 @@ import { useAuthStore } from '../stores/auth';
 const router = useRouter();
 const authStore = useAuthStore();
 const navigation = [
-  { label: 'Overview', to: '/admin' },
+  { label: 'Overview', to: '/admin', exact: true },
   { label: 'Projects', to: '/admin/projects' },
-  { label: 'Testimonials', to: '/admin/testimonials' },
-  { label: 'Messages', to: '/admin/submissions' },
   { label: 'Content', to: '/admin/content' },
 ];
 const handleLogout = () => {

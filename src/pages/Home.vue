@@ -279,89 +279,58 @@
             </p>
           </div>
 
-          <!-- 2 High-Impact Direct Contact Cards -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-            
-            <!-- 1. PHONE & WHATSAPP CARD -->
-            <div class="border border-[var(--color-border)] p-8 bg-[var(--color-bg-main)] flex flex-col justify-between">
+          <!-- Direct contact options -->
+          <div class="max-w-2xl mx-auto mb-12">
+            <div class="flex flex-col gap-6">
               
-              <div class="space-y-6">
-                <div class="flex items-center justify-between border-b border-[var(--color-border)] pb-4">
-                  <span class="font-data text-xs font-bold uppercase tracking-wider text-[var(--color-text-main)]">
-                    [TEL / WHATSAPP]
-                  </span>
-                  <span class="font-data text-[10px] text-[var(--color-text-muted)] uppercase tracking-wider border border-[var(--color-border)] px-2 py-0.5">
-                    DIRECT
-                  </span>
-                </div>
-
-                <div>
-                  <h3 class="font-display font-bold text-2xl text-[var(--color-text-main)]">
-                    Phone & WhatsApp
-                  </h3>
-                  <p class="text-xs text-[var(--color-text-muted)] mt-2 leading-relaxed font-normal">
-                    Call or message directly for immediate project discussions and scheduling.
-                  </p>
-                </div>
-
-                <!-- Direct Phone Box -->
-                <div class="bg-[var(--color-bg-sec)] p-4 border border-[var(--color-border)] font-data text-center">
-                  <div class="text-[10px] text-[var(--color-text-muted)] uppercase tracking-wider mb-1 font-bold">
-                    DIRECT NUMBER
+              <div class="border border-[var(--color-border)] p-8 bg-[var(--color-bg-main)] flex-1 flex flex-col justify-between">
+                <div class="space-y-6">
+                  <div class="flex items-center justify-between border-b border-[var(--color-border)] pb-4">
+                    <span class="font-data text-xs font-bold uppercase tracking-wider text-[var(--color-text-main)]">
+                      [DIRECT INBOX]
+                    </span>
                   </div>
-                  <div class="text-2xl font-black text-[var(--color-text-main)]">
-                    09121168900
+                  <div>
+                    <h3 class="font-display font-bold text-2xl text-[var(--color-text-main)]">
+                      Email Consultation
+                    </h3>
+                    <p class="text-xs text-[var(--color-text-muted)] mt-2 leading-relaxed">
+                      Send project specifications or architecture briefs directly.
+                    </p>
                   </div>
+                  <div class="bg-[var(--color-bg-sec)] p-4 border border-[var(--color-border)] font-data text-center">
+                    <div class="text-sm font-black text-[var(--color-text-main)] break-all uppercase">
+                      MICAHOKPERUVWE@GMAIL.COM
+                    </div>
+                  </div>
+                </div>
+                <div class="pt-8">
+                  <a href="mailto:micahokperuvwe@gmail.com" class="btn-cyan-outline w-full justify-center text-xs py-3.5 tracking-wider font-data">
+                    EMAIL MICAH DIRECTLY
+                  </a>
                 </div>
               </div>
 
-              <!-- Button -->
-              <div class="pt-8">
-                <a href="tel:09121168900" class="btn-amber w-full justify-center text-xs py-3.5 tracking-wider font-data">
-                  CALL: 09121168900
-                </a>
-              </div>
-            </div>
-
-            <!-- 2. DIRECT EMAIL CARD -->
-            <div class="border border-[var(--color-border)] p-8 bg-[var(--color-bg-main)] flex flex-col justify-between">
-
-              <div class="space-y-6">
-                <div class="flex items-center justify-between border-b border-[var(--color-border)] pb-4">
-                  <span class="font-data text-xs font-bold uppercase tracking-wider text-[var(--color-text-main)]">
-                    [ELECTRONIC MAIL]
-                  </span>
-                  <span class="font-data text-[10px] text-[var(--color-text-muted)] uppercase tracking-wider border border-[var(--color-border)] px-2 py-0.5">
-                    PRIMARY
-                  </span>
-                </div>
-
-                <div>
-                  <h3 class="font-display font-bold text-2xl text-[var(--color-text-main)]">
-                    Email Consultation
-                  </h3>
-                  <p class="text-xs text-[var(--color-text-muted)] mt-2 leading-relaxed font-normal">
-                    Send project specifications, architecture briefs, or contract requirements.
-                  </p>
-                </div>
-
-                <!-- Direct Email Box -->
-                <div class="bg-[var(--color-bg-sec)] p-4 border border-[var(--color-border)] font-data text-center">
-                  <div class="text-[10px] text-[var(--color-text-muted)] uppercase tracking-wider mb-1 font-bold">
-                    PRIMARY INBOX
+              <div class="border border-[var(--color-border)] p-8 bg-[var(--color-bg-main)] flex-1 flex flex-col justify-between">
+                <div class="space-y-6">
+                  <div class="flex items-center justify-between border-b border-[var(--color-border)] pb-4">
+                    <span class="font-data text-xs font-bold uppercase tracking-wider text-[var(--color-text-main)]">
+                      [TEL / WHATSAPP]
+                    </span>
                   </div>
-                  <div class="text-sm font-black text-[var(--color-text-main)] break-all uppercase">
-                    MICAHOKPERUVWE@GMAIL.COM
+                  <div class="bg-[var(--color-bg-sec)] p-4 border border-[var(--color-border)] font-data text-center">
+                    <div class="text-2xl font-black text-[var(--color-text-main)]">
+                      09121168900
+                    </div>
                   </div>
                 </div>
+                <div class="pt-8">
+                  <a href="tel:09121168900" class="btn-amber w-full justify-center text-xs py-3.5 tracking-wider font-data">
+                    CALL DIRECTLY
+                  </a>
+                </div>
               </div>
 
-              <!-- Button -->
-              <div class="pt-8">
-                <a href="mailto:micahokperuvwe@gmail.com" class="btn-cyan-outline w-full justify-center text-xs py-3.5 tracking-wider font-data">
-                  EMAIL MICAH DIRECTLY
-                </a>
-              </div>
             </div>
 
           </div>
@@ -418,7 +387,6 @@ const openDrawer = (project: any) => {
 const closeDrawer = () => {
   drawerOpen.value = false;
 };
-
 
 // ── Hero Stats ──
 const heroStats = [

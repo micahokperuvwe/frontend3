@@ -5,7 +5,7 @@
         
         <!-- Left: Logo -->
         <a href="#hero" @click.prevent="scrollToSection('hero')" class="flex items-center gap-2 group z-10 cursor-pointer">
-          <span class="font-display font-black text-2xl tracking-tight text-[var(--color-text-main)]">
+          <span class="font-display font-black text-2xl tracking-tight text-[var(--color-text-main)] group-hover:opacity-80 transition-opacity">
             MICAH-WEB
           </span>
         </a>
@@ -106,5 +106,3 @@ const toggleTheme = () => {
   }
 };
 </script>
-
-

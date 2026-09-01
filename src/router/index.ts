@@ -2,17 +2,17 @@ import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import { useAuthStore } from '../stores/auth';
 
 const routes: RouteRecordRaw[] = [
-  { path: '/', component: () => import('../pages/Home.vue'), meta: { title: 'MICAH-WEB — Digital Portfolio by Micah Okperuvwe' } },
-  { path: '/about', component: () => import('../pages/About.vue'), meta: { title: 'About | MICAH-WEB' } },
-  { path: '/projects', component: () => import('../pages/Projects.vue'), meta: { title: 'Projects | MICAH-WEB' } },
-  { path: '/case-studies', component: () => import('../pages/Projects.vue'), meta: { title: 'Case Studies | MICAH-WEB' } },
-  { path: '/projects/:slug', component: () => import('../pages/ProjectDetail.vue'), meta: { title: 'Project Detail | MICAH-WEB' } },
-  { path: '/case-studies/:slug', component: () => import('../pages/ProjectDetail.vue'), meta: { title: 'Case Study Detail | MICAH-WEB' } },
-  { path: '/services', component: () => import('../pages/Services.vue'), meta: { title: 'Services | MICAH-WEB' } },
-  { path: '/contact', component: () => import('../pages/Contact.vue'), meta: { title: 'Contact Micah | MICAH-WEB' } },
-  { path: '/terms', component: () => import('../pages/Terms.vue'), meta: { title: 'Terms of Service | MICAH-WEB' } },
-  { path: '/privacy', component: () => import('../pages/Privacy.vue'), meta: { title: 'Privacy Policy | MICAH-WEB' } },
-  { path: '/admin/login', component: () => import('../pages/admin/Login.vue'), meta: { title: 'Admin Login | MICAH-WEB' } },
+  { path: '/', component: () => import('../pages/Home.vue'), meta: { title: 'Micah Okperuvwe — Digital Portfolio' } },
+  { path: '/about', component: () => import('../pages/About.vue'), meta: { title: 'About | Micah Okperuvwe' } },
+  { path: '/projects', component: () => import('../pages/Projects.vue'), meta: { title: 'Projects | Micah Okperuvwe' } },
+  { path: '/case-studies', component: () => import('../pages/Projects.vue'), meta: { title: 'Case Studies | Micah Okperuvwe' } },
+  { path: '/projects/:slug', component: () => import('../pages/ProjectDetail.vue'), meta: { title: 'Project Detail | Micah Okperuvwe' } },
+  { path: '/case-studies/:slug', component: () => import('../pages/ProjectDetail.vue'), meta: { title: 'Case Study Detail | Micah Okperuvwe' } },
+  { path: '/services', component: () => import('../pages/Services.vue'), meta: { title: 'Services | Micah Okperuvwe' } },
+  { path: '/contact', component: () => import('../pages/Contact.vue'), meta: { title: 'Contact Micah | Micah Okperuvwe' } },
+  { path: '/terms', component: () => import('../pages/Terms.vue'), meta: { title: 'Terms of Service | Micah Okperuvwe' } },
+  { path: '/privacy', component: () => import('../pages/Privacy.vue'), meta: { title: 'Privacy Policy | Micah Okperuvwe' } },
+  { path: '/admin/login', component: () => import('../pages/admin/Login.vue'), meta: { title: 'Admin Login | Micah Okperuvwe' } },
   {
     path: '/admin', component: () => import('../components/AdminShell.vue'), meta: { requiresAuth: true }, children: [
       { path: '', component: () => import('../pages/admin/Dashboard.vue'), meta: { title: 'Dashboard | Admin' } },
@@ -24,7 +24,7 @@ const routes: RouteRecordRaw[] = [
       { path: 'content', component: () => import('../pages/admin/Content.vue'), meta: { title: 'Content | Admin' } },
     ],
   },
-  { path: '/:pathMatch(.*)*', component: () => import('../pages/NotFound.vue'), meta: { title: '404 | MICAH-WEB' } },
+  { path: '/:pathMatch(.*)*', component: () => import('../pages/NotFound.vue'), meta: { title: '404 | Micah Okperuvwe' } },
 ];
 
 const router = createRouter({ history: createWebHistory(import.meta.env.BASE_URL), routes });
