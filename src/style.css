@@ -1,48 +1,42 @@
-@import "tailwindcss";
-
-/* ===== DIDONE FONT IMPORT (Playfair Display — modern Bodoni/Didot style) ===== */
+/* ===== DIDONE FONT IMPORT (Playfair Display) ===== */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Playfair+Display+SC:wght@400;700&display=swap');
+@import "tailwindcss";
 
 @layer base {
   :root {
-    /* LIGHT MODE - MONOCHROME 3D */
-    --color-bg-main: #ffffff;
-    --color-bg-sec: #f0f0f0;
-    --color-bg-card: #ffffff;
-    --color-border: #000000;
-    --color-text-main: #000000;
-    --color-text-muted: #666666;
+    /* WARM OFF-WHITE ARCHITECTURAL PALETTE (NO PURE WHITE) */
+    --color-bg-main: #f4f4f4;
+    --color-bg-sec: #eaeaea;
+    --color-bg-card: #f4f4f4;
+    --color-border: #1a1a1a;
+    --color-text-main: #111111;
+    --color-text-muted: #555555;
     
-    /* pure black/white for 'no color mixing' aesthetic */
-    --color-accent: #000000;
-    --color-accent-text: #ffffff; 
+    --color-accent: #111111;
+    --color-accent-text: #f4f4f4; 
     --color-accent-hover: #333333;
     
-    --shadow-color: #000000;
-
-    --font-main: 'Playfair Display', 'Didot', 'Bodoni MT', 'Book Antiqua', Georgia, serif;
+    --font-main: 'Playfair Display', Georgia, serif;
     --font-sc: 'Playfair Display SC', 'Playfair Display', serif;
   }
 
   :root.dark {
-    /* DARK MODE - MONOCHROME 3D */
-    --color-bg-main: #000000;
-    --color-bg-sec: #111111;
-    --color-bg-card: #000000;
-    --color-border: #ffffff;
-    --color-text-main: #ffffff;
-    --color-text-muted: #999999;
+    /* SOLID DEEP CHARCOAL/BLACK MONOCHROME (NO PURPLE) */
+    --color-bg-main: #0c0c0e;
+    --color-bg-sec: #16161a;
+    --color-bg-card: #0c0c0e;
+    --color-border: #2a2a2e;
+    --color-text-main: #f0f0f2;
+    --color-text-muted: #888890;
     
-    /* inverted for dark mode */
-    --color-accent: #ffffff;
-    --color-accent-text: #000000;
-    --color-accent-hover: #cccccc;
-    
-    --shadow-color: #ffffff;
+    --color-accent: #f0f0f2;
+    --color-accent-text: #0c0c0e;
+    --color-accent-hover: #d0d0d4;
   }
 
   * {
     box-sizing: border-box;
+    border-radius: 0 !important; /* Strictly no soft corner radius */
   }
 
   body {
@@ -51,9 +45,8 @@
     font-family: var(--font-main);
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
-    line-height: 1.7;
+    line-height: 1.6;
     font-size: 16px;
-    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -69,8 +62,8 @@
 
   .font-data {
     font-family: var(--font-sc);
-    letter-spacing: 0.06em;
-    font-size: 0.85em;
+    letter-spacing: 0.08em;
+    font-size: 0.82em;
   }
 
   a {
@@ -83,14 +76,14 @@
     color: var(--color-accent-text);
   }
 
-  /* Custom scrollbar */
-  ::-webkit-scrollbar { width: 5px; }
+  /* Solid scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: var(--color-bg-sec); }
   ::-webkit-scrollbar-thumb { background: var(--color-border); }
-  ::-webkit-scrollbar-thumb:hover { background: var(--color-accent); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
 }
 
-/* ===== UTILITY CLASSES & FIXES ===== */
+/* ===== UTILITY CLASSES ===== */
 .bg-navy { background-color: var(--color-bg-main); }
 .bg-navy-dark { background-color: var(--color-bg-sec); }
 .bg-navy-card { background-color: var(--color-bg-card); }
@@ -98,7 +91,6 @@
 .text-amber { color: var(--color-text-main); }
 .text-muted { color: var(--color-text-muted); }
 
-/* Force text visibility on accent backgrounds to fix black-on-black issues */
 .bg-\[var\(--color-accent\)\] {
   color: var(--color-accent-text) !important;
 }
@@ -106,135 +98,85 @@
   color: var(--color-accent-text) !important;
 }
 
-/* ===== BUTTONS (3D Structure) ===== */
+/* ===== CLEAN SOLID BUTTONS (NO DROP SHADOWS, NO HARSH GRADIENTS, NO ROUNDED RADII) ===== */
 .btn-amber {
   background-color: var(--color-accent);
   color: var(--color-accent-text) !important;
   font-family: var(--font-sc);
   font-weight: 700;
-  font-size: 0.82rem;
-  letter-spacing: 0.1em;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 0.8rem 1.75rem;
-  border-radius: 0; /* Sharp corners for brutalist 3D */
-  border: 2px solid var(--color-border);
-  transition: all 0.1s ease-in-out;
+  padding: 0.85rem 1.75rem;
+  border: 1px solid var(--color-border);
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  box-shadow: 4px 4px 0px var(--shadow-color);
+  cursor: pointer;
+  transition: opacity 0.15s ease;
 }
 .btn-amber:hover {
-  background-color: var(--color-accent-hover);
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0px var(--shadow-color);
-}
-.btn-amber:active {
-  transform: translate(4px, 4px);
-  box-shadow: 0px 0px 0px var(--shadow-color);
+  opacity: 0.9;
 }
 
 .btn-cyan-outline {
-  border: 2px solid var(--color-border);
+  border: 1px solid var(--color-border);
   color: var(--color-text-main);
-  background: var(--color-bg-main);
+  background: transparent;
   font-family: var(--font-sc);
   font-weight: 700;
-  font-size: 0.82rem;
-  letter-spacing: 0.1em;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 0.8rem 1.75rem;
-  border-radius: 0; /* Sharp corners */
-  transition: all 0.1s ease-in-out;
+  padding: 0.85rem 1.75rem;
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  box-shadow: 4px 4px 0px var(--shadow-color);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
 }
 .btn-cyan-outline:hover {
   background-color: var(--color-bg-sec);
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0px var(--shadow-color);
-}
-.btn-cyan-outline:active {
-  transform: translate(4px, 4px);
-  box-shadow: 0px 0px 0px var(--shadow-color);
 }
 
 .btn-ghost {
   color: var(--color-text-muted);
   background: transparent;
   font-family: var(--font-sc);
-  font-size: 0.82rem;
-  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: 0.6rem 1rem;
-  border-radius: 0;
-  transition: all 0.15s ease;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
 }
 .btn-ghost:hover {
   color: var(--color-text-main);
-  background-color: var(--color-bg-sec);
 }
 
-/* ===== CARDS (Solid 3D) ===== */
+/* ===== SOLID BORDER CARDS (NO DROP SHADOWS, NO BENTO GRIDS, NO ROUNDED EDGES) ===== */
 .card-brief {
   background: var(--color-bg-card);
-  border: 2px solid var(--color-border);
-  border-radius: 0; /* brutalist sharp */
-  transition: all 0.2s ease-in-out;
-  box-shadow: 6px 6px 0px var(--shadow-color);
-}
-.card-brief:hover {
-  box-shadow: 8px 8px 0px var(--shadow-color);
-  transform: translate(-2px, -2px);
-}
-
-.card-lift {
-  background: var(--color-bg-card);
-  border: 2px solid var(--color-border);
-  border-radius: 0;
-  transition: all 0.2s ease-in-out;
-  box-shadow: 6px 6px 0px var(--shadow-color);
-}
-.card-lift:hover {
-  transform: translate(-4px, -4px);
-  box-shadow: 10px 10px 0px var(--shadow-color);
+  border: 1px solid var(--color-border);
 }
 
 /* ===== SECTION LABELS ===== */
 .section-label {
   font-family: var(--font-sc);
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  color: var(--color-accent-text) !important;
+  color: var(--color-text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  background-color: var(--color-accent);
-  padding: 0.2rem 0.6rem;
-  border: 1.5px solid var(--color-border);
+  letter-spacing: 0.16em;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0.2rem;
   display: inline-block;
-  border-radius: 0;
 }
 
 /* ===== DIVIDER ===== */
 .divider {
   border: none;
-  border-top: 2px solid var(--color-border);
+  border-top: 1px solid var(--color-border);
   margin: 0;
-}
-
-/* ===== SKELETON LOADING (Solid Animation, No Gradients) ===== */
-.skeleton {
-  background-color: var(--color-bg-sec);
-  border: 2px solid var(--color-border);
-  animation: skeleton-pulse 1.5s infinite alternate;
-  border-radius: 0;
-}
-@keyframes skeleton-pulse {
-  0% { opacity: 0.6; }
-  100% { opacity: 1; }
 }

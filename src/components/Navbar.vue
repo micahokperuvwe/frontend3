@@ -1,87 +1,94 @@
 <template>
-  <nav class="sticky top-0 z-50 bg-[var(--color-bg-main)]/90 backdrop-blur-md transition-all duration-300 border-b border-[var(--color-border)]/10">
+  <nav class="sticky top-0 z-50 bg-[var(--color-bg-main)] border-b border-[var(--color-border)]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-24 relative">
+      <div class="flex items-center justify-between h-20 relative">
         
         <!-- Left: Logo -->
-        <router-link to="/" class="flex items-center gap-2 group z-10">
-          <span class="font-display font-bold text-2xl tracking-tight text-[var(--color-text-main)] group-hover:opacity-80 transition-opacity">
+        <a href="#hero" @click.prevent="scrollToSection('hero')" class="flex items-center gap-2 group z-10 cursor-pointer">
+          <span class="font-display font-black text-2xl tracking-tight text-[var(--color-text-main)]">
             MICAH-WEB
           </span>
-        </router-link>
+        </a>
 
         <!-- Center: Desktop Navigation Links -->
         <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center gap-8">
-          <router-link to="/" class="text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text-main)] transition-colors" active-class="text-[var(--color-text-main)]">
+          <a href="#hero" @click.prevent="scrollToSection('hero')" class="font-data text-xs uppercase tracking-widest text-[var(--color-text-muted)] hover:text-[var(--color-text-main)] transition-colors cursor-pointer">
             Home
-          </router-link>
-          <router-link to="/services" class="text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text-main)] transition-colors" active-class="text-[var(--color-text-main)]">
-            Services
-          </router-link>
-          <router-link to="/case-studies" class="text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text-main)] transition-colors" active-class="text-[var(--color-text-main)]">
+          </a>
+          <a href="#projects" @click.prevent="scrollToSection('projects')" class="font-data text-xs uppercase tracking-widest text-[var(--color-text-muted)] hover:text-[var(--color-text-main)] transition-colors cursor-pointer">
             Projects
-          </router-link>
-          <router-link to="/about" class="text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text-main)] transition-colors" active-class="text-[var(--color-text-main)]">
+          </a>
+          <a href="#about" @click.prevent="scrollToSection('about')" class="font-data text-xs uppercase tracking-widest text-[var(--color-text-muted)] hover:text-[var(--color-text-main)] transition-colors cursor-pointer">
             About
-          </router-link>
+          </a>
+          <a href="#contact" @click.prevent="scrollToSection('contact')" class="font-data text-xs uppercase tracking-widest text-[var(--color-text-muted)] hover:text-[var(--color-text-main)] transition-colors cursor-pointer">
+            Contact
+          </a>
         </div>
 
         <!-- Right: Theme Toggle & Primary CTA Button -->
-        <div class="hidden md:flex items-center gap-5 z-10">
-          <button @click="toggleTheme" class="text-[var(--color-text-main)] hover:opacity-75 transition-opacity" title="Toggle Theme">
-            <!-- Moon icon (shows in light mode) -->
-            <svg v-if="!isDark" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-            </svg>
-            <!-- Sun icon (shows in dark mode) -->
-            <svg v-else class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-            </svg>
+        <div class="hidden md:flex items-center gap-4 z-10">
+          <button @click="toggleTheme" class="p-2 border border-[var(--color-border)] text-[var(--color-text-main)] hover:bg-[var(--color-bg-sec)] transition-colors cursor-pointer font-data text-xs" title="Toggle Theme">
+            <span v-if="!isDark">DARK</span>
+            <span v-else>LIGHT</span>
           </button>
           
-          <router-link to="/contact" class="bg-[var(--color-text-main)] text-[var(--color-bg-main)] font-semibold text-sm py-2.5 px-6 rounded-full hover:opacity-90 transition-opacity">
-            Contact me
-          </router-link>
+          <a href="#contact" @click.prevent="scrollToSection('contact')" class="btn-amber text-xs py-2 px-5 cursor-pointer">
+            Get In Touch
+          </a>
         </div>
 
         <!-- Mobile menu & Theme toggle buttons -->
-        <div class="flex md:hidden items-center gap-4">
-          <button @click="toggleTheme" class="text-[var(--color-text-main)]" title="Toggle Theme">
-            <svg v-if="!isDark" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-            <svg v-else class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+        <div class="flex md:hidden items-center gap-3">
+          <button @click="toggleTheme" class="px-2 py-1 border border-[var(--color-border)] font-data text-xs text-[var(--color-text-main)]" title="Toggle Theme">
+            <span v-if="!isDark">DARK</span>
+            <span v-else>LIGHT</span>
           </button>
-          <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-[var(--color-text-main)] p-1 focus:outline-none">
-            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path v-if="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-              <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-            </svg>
+          <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-[var(--color-text-main)] p-1 border border-[var(--color-border)] text-xs font-data uppercase px-2 py-1 cursor-pointer">
+            Menu
           </button>
         </div>
       </div>
     </div>
 
     <!-- Mobile Dropdown -->
-    <div v-if="mobileMenuOpen" class="md:hidden bg-[var(--color-bg-main)] border-b border-[var(--color-border)]/10 px-4 pt-2 pb-6 space-y-3">
-      <router-link to="/" @click="mobileMenuOpen = false" class="block text-[var(--color-text-main)] py-2 font-medium">Home</router-link>
-      <router-link to="/services" @click="mobileMenuOpen = false" class="block text-[var(--color-text-main)] py-2 font-medium">Services</router-link>
-      <router-link to="/case-studies" @click="mobileMenuOpen = false" class="block text-[var(--color-text-main)] py-2 font-medium">Projects</router-link>
-      <router-link to="/about" @click="mobileMenuOpen = false" class="block text-[var(--color-text-main)] py-2 font-medium">About</router-link>
-      <router-link to="/contact" @click="mobileMenuOpen = false" class="block text-[var(--color-text-main)] py-2 font-medium">Contact</router-link>
-      <router-link to="/contact" @click="mobileMenuOpen = false" class="block bg-[var(--color-text-main)] text-[var(--color-bg-main)] text-center font-semibold py-3 rounded-full mt-4">
-        Contact me
-      </router-link>
+    <div v-if="mobileMenuOpen" class="md:hidden bg-[var(--color-bg-main)] border-b border-[var(--color-border)] px-4 pt-2 pb-6 space-y-3">
+      <a href="#hero" @click.prevent="scrollToSection('hero')" class="block font-data text-xs uppercase tracking-wider text-[var(--color-text-main)] py-2">Home</a>
+      <a href="#projects" @click.prevent="scrollToSection('projects')" class="block font-data text-xs uppercase tracking-wider text-[var(--color-text-main)] py-2">Projects</a>
+      <a href="#about" @click.prevent="scrollToSection('about')" class="block font-data text-xs uppercase tracking-wider text-[var(--color-text-main)] py-2">About</a>
+      <a href="#contact" @click.prevent="scrollToSection('contact')" class="block font-data text-xs uppercase tracking-wider text-[var(--color-text-main)] py-2">Contact</a>
+      <a href="#contact" @click.prevent="scrollToSection('contact')" class="block btn-amber text-center text-xs py-3 mt-4 w-full">
+        Get In Touch
+      </a>
     </div>
   </nav>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 
 const mobileMenuOpen = ref(false);
 const isDark = ref(false);
+const router = useRouter();
+const route = useRoute();
+
+const scrollToSection = (id: string) => {
+  mobileMenuOpen.value = false;
+  if (route.path !== '/') {
+    router.push(`/#${id}`).then(() => {
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    });
+  } else {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }
+};
 
 onMounted(() => {
-  // Check initial theme state on mount
   if (document.documentElement.classList.contains('dark')) {
     isDark.value = true;
   }
@@ -99,3 +106,5 @@ const toggleTheme = () => {
   }
 };
 </script>
+
+

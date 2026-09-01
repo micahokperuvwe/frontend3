@@ -10,6 +10,8 @@ const routes: RouteRecordRaw[] = [
   { path: '/case-studies/:slug', component: () => import('../pages/ProjectDetail.vue'), meta: { title: 'Case Study Detail | MICAH-WEB' } },
   { path: '/services', component: () => import('../pages/Services.vue'), meta: { title: 'Services | MICAH-WEB' } },
   { path: '/contact', component: () => import('../pages/Contact.vue'), meta: { title: 'Contact Micah | MICAH-WEB' } },
+  { path: '/terms', component: () => import('../pages/Terms.vue'), meta: { title: 'Terms of Service | MICAH-WEB' } },
+  { path: '/privacy', component: () => import('../pages/Privacy.vue'), meta: { title: 'Privacy Policy | MICAH-WEB' } },
   { path: '/admin/login', component: () => import('../pages/admin/Login.vue'), meta: { title: 'Admin Login | MICAH-WEB' } },
   {
     path: '/admin', component: () => import('../components/AdminShell.vue'), meta: { requiresAuth: true }, children: [
