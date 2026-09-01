@@ -159,6 +159,8 @@
                   :technologies="project.technologies || []"
                   :resultMetric="project.resultMetric || ''"
                   :liveUrl="project.demo_url || project.liveUrl || ''"
+                  :fullProject="project"
+                  @open-case-study="openDrawer"
                 />
               </div>
             </div>
@@ -388,6 +390,13 @@
     </main>
 
     <Footer />
+
+    <!-- Case Study Drawer (renders via Teleport to body) -->
+    <CaseStudyDrawer
+      :isOpen="drawerOpen"
+      :project="drawerProject"
+      @close="closeDrawer"
+    />
   </div>
 </template>
 
@@ -396,7 +405,20 @@ import { ref, computed, onMounted, onUnmounted } from 'vue';
 import Navbar from '../components/Navbar.vue';
 import Footer from '../components/Footer.vue';
 import ProjectCard from '../components/ProjectCard.vue';
+import CaseStudyDrawer from '../components/CaseStudyDrawer.vue';
 import api from '../utils/api';
+
+// ── Case Study Drawer State ──
+const drawerOpen = ref(false);
+const drawerProject = ref<any>(null);
+const openDrawer = (project: any) => {
+  drawerProject.value = project;
+  drawerOpen.value = true;
+};
+const closeDrawer = () => {
+  drawerOpen.value = false;
+};
+
 
 // ── Hero Stats ──
 const heroStats = [

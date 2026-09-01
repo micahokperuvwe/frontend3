@@ -15,7 +15,7 @@
         {{ category }}
       </span>
 
-      <!-- Key Result Callout (Clean text, no emojis) -->
+      <!-- Key Result Callout -->
       <div v-if="resultMetric" class="absolute bottom-3 right-3 bg-[var(--color-bg-main)] text-[var(--color-text-main)] font-data font-bold text-[10px] px-2 py-0.5 border border-[var(--color-border)]">
         <span>{{ resultMetric }}</span>
       </div>
@@ -32,7 +32,7 @@
           {{ description }}
         </p>
 
-        <!-- Tech Stack Badges (Clean monochrome text badges, no soft radius, no drop shadows) -->
+        <!-- Tech Stack Badges -->
         <div class="flex flex-wrap gap-1.5 mb-6">
           <span
             v-for="tech in technologies"
@@ -44,11 +44,15 @@
         </div>
       </div>
 
-      <!-- Footer Action Links (Real product demo & case study) -->
+      <!-- Footer Action Links -->
       <div class="pt-4 border-t border-[var(--color-border)]/20 flex items-center justify-between">
-        <router-link :to="`/case-studies/${slug}`" class="font-data text-xs font-bold text-[var(--color-text-main)] uppercase tracking-wider hover:underline">
-          Case Study
-        </router-link>
+        <!-- Case Study: emit event to open drawer -->
+        <button
+          @click="$emit('open-case-study', fullProject)"
+          class="font-data text-xs font-bold text-[var(--color-text-main)] uppercase tracking-wider hover:underline cursor-pointer bg-transparent border-none p-0"
+        >
+          Case Study [+]
+        </button>
         
         <a v-if="liveUrl" :href="liveUrl" target="_blank" rel="noopener noreferrer" class="font-data text-xs font-bold text-[var(--color-text-muted)] hover:text-[var(--color-text-main)] uppercase tracking-wider">
           Live Demo [↗]
@@ -69,12 +73,16 @@ const props = withDefaults(defineProps<{
   technologies?: string[];
   resultMetric?: string;
   liveUrl?: string;
+  fullProject?: any;
 }>(), {
   technologies: () => [],
-  imageUrl: ''
+  imageUrl: '',
+  fullProject: null,
 });
+
+defineEmits<{
+  'open-case-study': [project: any];
+}>();
 
 const defaultImage = 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80';
 </script>
-
-
