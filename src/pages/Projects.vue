@@ -69,6 +69,8 @@
             :technologies="project.technologies || []"
             :resultMetric="project.resultMetric || ''"
             :liveUrl="project.demo_url || ''"
+            :fullProject="project"
+            @open-case-study="openDrawer"
           />
         </div>
 
@@ -92,6 +94,12 @@
     </main>
 
     <Footer />
+
+    <CaseStudyDrawer
+      :isOpen="drawerOpen"
+      :project="drawerProject"
+      @close="closeDrawer"
+    />
   </div>
 </template>
 
@@ -100,11 +108,23 @@ import { ref, computed, onMounted } from 'vue';
 import Navbar from '../components/Navbar.vue';
 import Footer from '../components/Footer.vue';
 import ProjectCard from '../components/ProjectCard.vue';
+import CaseStudyDrawer from '../components/CaseStudyDrawer.vue';
 import axios from 'axios';
 
 const activeCategory = ref('ALL');
 const loading = ref(true);
 const error = ref(false);
+const drawerOpen = ref(false);
+const drawerProject = ref<any>(null);
+
+const openDrawer = (project: any) => {
+  drawerProject.value = project;
+  drawerOpen.value = true;
+};
+
+const closeDrawer = () => {
+  drawerOpen.value = false;
+};
 
 const staticProjects = [
   {
