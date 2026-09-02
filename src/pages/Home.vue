@@ -302,6 +302,18 @@
                     <div class="text-sm font-black text-[var(--color-text-main)] break-all uppercase">
                       MICAHOKPERUVWE@GMAIL.COM
                     </div>
+                    <button
+                      type="button"
+                      class="copy-email-btn mt-3 inline-flex items-center gap-2 border border-[var(--color-border)] px-3 py-2 text-[10px] uppercase tracking-wider text-[var(--color-text-main)] hover:bg-[var(--color-bg-main)] transition-colors"
+                      :aria-label="emailCopied ? 'Email copied' : 'Copy email address'"
+                      @click="copyEmail"
+                    >
+                      <svg aria-hidden="true" viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <rect x="9" y="9" width="11" height="11" rx="1" />
+                        <path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1" />
+                      </svg>
+                      {{ emailCopied ? 'Copied' : 'Copy Email' }}
+                    </button>
                   </div>
                 </div>
                 <div class="pt-8">
@@ -386,6 +398,25 @@ const openDrawer = (project: any) => {
 };
 const closeDrawer = () => {
   drawerOpen.value = false;
+};
+
+const emailCopied = ref(false);
+const copyEmail = async () => {
+  const email = 'micahokperuvwe@gmail.com';
+  try {
+    await navigator.clipboard.writeText(email);
+  } catch {
+    const textArea = document.createElement('textarea');
+    textArea.value = email;
+    textArea.style.position = 'fixed';
+    textArea.style.opacity = '0';
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    textArea.remove();
+  }
+  emailCopied.value = true;
+  window.setTimeout(() => { emailCopied.value = false; }, 2000);
 };
 
 // ── Hero Stats ──
