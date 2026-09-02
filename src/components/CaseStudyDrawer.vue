@@ -59,7 +59,7 @@
                 <div class="cs-section-label">Project Gallery</div>
                 <div class="cs-gallery">
                   <div v-for="(img, i) in project.gallery_images" :key="i" class="cs-gallery-item">
-                    <img :src="img.url || img" :alt="(project.title || '') + ' screenshot ' + (i + 1)" class="cs-gallery-img" />
+                    <img :src="img.url || img" :alt="(project.title || '') + ' screenshot ' + (Number(i) + 1)" class="cs-gallery-img" />
                   </div>
                 </div>
               </div>
